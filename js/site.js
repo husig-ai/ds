@@ -1,5 +1,6 @@
 import { supabase } from './supabase-client.js';
 import { listingCardHTML, formatPrice } from './components.js';
+import { showError, showSuccess } from './errors.js';
 
 function escapeHtml(text) {
   if (!text) return '';
@@ -12,18 +13,32 @@ function escapeHtml(text) {
 async function loadFeaturedListings() {
   const el = document.getElementById('featuredListings');
   if (!el) return;
-  const { data, error } = await supabase
-    .from('listings')
-    .select('*')
-    .eq('featured', true)
-    .order('created_at', { ascending: false })
-    .limit(3);
 
-  if (error || !data || data.length === 0) {
-    el.innerHTML = '<p class="muted">No featured listings yet.</p>';
-    return;
+  try {
+    const { data, error } = await supabase
+      .from('listings')
+      .select('*')
+      .eq('featured', true)
+      .order('created_at', { ascending: false })
+      .limit(3);
+
+    if (error) {
+      console.error('Failed to load listings:', error);
+      showError('Could not load listings. Please try refreshing the page.');
+      el.innerHTML = '<p class="muted">Could not load listings.</p>';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      el.innerHTML = '<p class="muted">No featured listings yet.</p>';
+      return;
+    }
+    el.innerHTML = data.map(listingCardHTML).join('');
+  } catch (err) {
+    console.error('Listings error:', err);
+    showError('Error loading listings: ' + err.message);
+    el.innerHTML = '<p class="muted">Error loading listings.</p>';
   }
-  el.innerHTML = data.map(listingCardHTML).join('');
 }
 
 // ---------- Featured testimonials ----------
@@ -41,19 +56,33 @@ function testimonialCardHTML(t) {
 async function loadFeaturedTestimonials() {
   const el = document.getElementById('featuredTestimonials');
   if (!el) return;
-  const { data, error } = await supabase
-    .from('testimonials')
-    .select('*')
-    .eq('featured', true)
-    .eq('published', true)
-    .order('created_at', { ascending: false })
-    .limit(3);
 
-  if (error || !data || data.length === 0) {
-    el.innerHTML = '<p class="muted">No testimonials yet.</p>';
-    return;
+  try {
+    const { data, error } = await supabase
+      .from('testimonials')
+      .select('*')
+      .eq('featured', true)
+      .eq('published', true)
+      .order('created_at', { ascending: false })
+      .limit(3);
+
+    if (error) {
+      console.error('Failed to load testimonials:', error);
+      showError('Could not load testimonials. Please try refreshing the page.');
+      el.innerHTML = '<p class="muted">Could not load testimonials.</p>';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      el.innerHTML = '<p class="muted">No testimonials yet.</p>';
+      return;
+    }
+    el.innerHTML = data.map(testimonialCardHTML).join('');
+  } catch (err) {
+    console.error('Testimonials error:', err);
+    showError('Error loading testimonials: ' + err.message);
+    el.innerHTML = '<p class="muted">Error loading testimonials.</p>';
   }
-  el.innerHTML = data.map(testimonialCardHTML).join('');
 }
 
 // ---------- Intake form (multi-step + Supabase submit) ----------
@@ -132,44 +161,54 @@ function initIntakeForm() {
     nextBtn.textContent = 'Submitting…';
     showError('');
 
-    const val = (name) => form.querySelector(`[name="${name}"]`)?.value.trim() || null;
-    const num = (name) => {
-      const v = val(name);
-      return v ? Number(v) : null;
-    };
+    try {
+      const val = (name) => form.querySelector(`[name="${name}"]`)?.value.trim() || null;
+      const num = (name) => {
+        const v = val(name);
+        return v ? Number(v) : null;
+      };
 
-    const payload = {
-      full_name: val('full_name'),
-      email: val('email'),
-      phone: val('phone'),
-      budget_min: num('budget_min'),
-      budget_max: num('budget_max'),
-      timeline: state.timeline,
-      financing_status: state.financing_status,
-      preferred_areas: val('preferred_areas'),
-      property_types: state.property_types,
-      bedrooms_needed: num('bedrooms_needed'),
-      bathrooms_needed: num('bathrooms_needed'),
-      must_haves: val('must_haves'),
-      additional_notes: val('additional_notes'),
-    };
+      const payload = {
+        full_name: val('full_name'),
+        email: val('email'),
+        phone: val('phone'),
+        budget_min: num('budget_min'),
+        budget_max: num('budget_max'),
+        timeline: state.timeline,
+        financing_status: state.financing_status,
+        preferred_areas: val('preferred_areas'),
+        property_types: state.property_types,
+        bedrooms_needed: num('bedrooms_needed'),
+        bathrooms_needed: num('bathrooms_needed'),
+        must_haves: val('must_haves'),
+        additional_notes: val('additional_notes'),
+      };
 
-    const { error } = await supabase.from('leads').insert(payload);
+      const { error } = await supabase.from('leads').insert(payload);
 
-    if (error) {
-      showError('Something went wrong submitting your form. Please try again.');
+      if (error) {
+        console.error('Form submission error:', error);
+        showError('Could not submit form. Please check your connection and try again.');
+        nextBtn.disabled = false;
+        nextBtn.textContent = 'Submit';
+        return;
+      }
+
+      const firstName = (payload.full_name || '').split(' ')[0];
+      const message = firstName
+        ? `Thanks, ${firstName} — I've got your details and I'll follow up shortly with homes that match what you're looking for.`
+        : `Thanks — I've got your details and I'll follow up shortly with homes that match what you're looking for.`;
+
+      showSuccess('Form submitted successfully!');
+      donePanel.querySelector('p').textContent = message;
+      formSteps.style.display = 'none';
+      donePanel.style.display = 'block';
+    } catch (err) {
+      console.error('Form error:', err);
+      showError('An error occurred: ' + err.message);
       nextBtn.disabled = false;
       nextBtn.textContent = 'Submit';
-      return;
     }
-
-    const firstName = (payload.full_name || '').split(' ')[0];
-    const message = firstName
-      ? `Thanks, ${firstName} — I've got your details and I'll follow up shortly with homes that match what you're looking for.`
-      : `Thanks — I've got your details and I'll follow up shortly with homes that match what you're looking for.`;
-    donePanel.querySelector('p').textContent = message;
-    formSteps.style.display = 'none';
-    donePanel.style.display = 'block';
   }
 
   nextBtn.addEventListener('click', () => {

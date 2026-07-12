@@ -1,5 +1,6 @@
 import { supabase } from './supabase-client.js';
 import { formatPrice } from './components.js';
+import { showError } from './errors.js';
 
 const container = document.getElementById('listingContent');
 const params = new URLSearchParams(window.location.search);
@@ -17,14 +18,24 @@ async function load() {
     return;
   }
 
-  const { data: l, error } = await supabase.from('listings').select('*').eq('id', id).single();
+  try {
+    const { data: l, error } = await supabase.from('listings').select('*').eq('id', id).single();
 
-  if (error || !l) {
-    container.innerHTML = `
-      <p class="muted">This listing couldn't be found.</p>
-      <a href="listings.html" style="color:var(--brass-dark);">← Back to listings</a>`;
-    return;
-  }
+    if (error) {
+      console.error('Failed to load listing:', error);
+      showError('Could not load this listing.');
+      container.innerHTML = `
+        <p class="muted">This listing couldn't be found.</p>
+        <a href="listings.html" style="color:var(--brass-dark);">← Back to listings</a>`;
+      return;
+    }
+
+    if (!l) {
+      container.innerHTML = `
+        <p class="muted">This listing couldn't be found.</p>
+        <a href="listings.html" style="color:var(--brass-dark);">← Back to listings</a>`;
+      return;
+    }
 
   const addr = [l.address, l.city, l.state, l.zip].filter(Boolean).join(', ');
   const cover = l.image_urls && l.image_urls[0];
@@ -58,6 +69,13 @@ async function load() {
       <a href="index.html#intake" class="btn btn-brass">Tell me what you're looking for</a>
     </div>
   `;
+  } catch (err) {
+    console.error('Listing detail error:', err);
+    showError('Error loading listing: ' + err.message);
+    container.innerHTML = `
+      <p class="muted">An error occurred while loading this listing.</p>
+      <a href="listings.html" style="color:var(--brass-dark);">← Back to listings</a>`;
+  }
 }
 
 function statBlock(value, label) {
