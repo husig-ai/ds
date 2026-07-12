@@ -26,26 +26,26 @@ Only `.env.example` (with placeholder values) should be in version control.
 
 ### Agent Information
 ```js
-agentFirstName: 'Drew'      // Your first name
-agentLastName: 'Sharma'     // Your last name
-companyName: 'Realty'       // Your company name
+agentFirstName: 'Your Name'      // Your first name
+agentLastName: 'Your Last Name'  // Your last name
+companyName: 'Your Company'      // Your company name
 ```
 **Derived values** (auto-formatted):
-- `agentFullName` → "Drew Sharma"
-- `brandName` → "Drew Sharma Realty"
+- `agentFullName` → "Your Name Your Last Name"
+- `brandName` → "Your Name Your Last Name Your Company"
 
 ### Location
 ```js
-primaryLocation: 'Frisco, TX'                    // Main service area
-serviceAreas: 'Frisco and the surrounding area'  // Full description
-buyerRepresentation: 'buyer representation'      // Your focus area
+primaryLocation: 'City, State'                 // Main service area
+serviceAreas: 'Your service area description'  // Full description
+buyerRepresentation: 'buyer representation'    // Your focus area
 ```
 
 ### Agent Stats
 ```js
-yearsInMarket: 14           // Years of experience
-homesClosedCount: '120+'    // Total homes closed
-clientRating: '4.9'         // Average client rating (1-5)
+yearsInMarket: 10           // Years of experience
+homesClosedCount: '100+'    // Total homes closed
+clientRating: '5.0'         // Average client rating (1-5)
 ```
 
 ### Legal

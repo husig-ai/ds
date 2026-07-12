@@ -14,60 +14,62 @@ Follow these steps to customize the site for your real estate business.
 - [ ] Open `js/config.js`
 - [ ] Update your agent name:
   ```js
-  agentFirstName: 'Your First Name'
+  agentFirstName: 'Your Name'
   agentLastName: 'Your Last Name'
   ```
 - [ ] Update company name:
   ```js
   companyName: 'Your Company'
   ```
-- [ ] Update location:
+- [ ] Update location (your primary service area):
   ```js
   primaryLocation: 'Your City, State'
   serviceAreas: 'Your service area description'
   ```
-- [ ] Update stats:
+- [ ] Update your stats:
   ```js
-  yearsInMarket: 10
-  homesClosedCount: '200+'
-  clientRating: '4.8'
+  yearsInMarket: 10       // Your years of experience
+  homesClosedCount: '100+' // Your total homes sold/closed
+  clientRating: '5.0'     // Your average rating (1-5)
   ```
 
 ## Step 3: Supabase Setup
 - [ ] Create a Supabase project at https://supabase.com
 - [ ] Run SQL from `supabase/schema.sql` in SQL Editor
-- [ ] Create a user account (Settings → Authentication → Add User)
-- [ ] Copy Project URL and Anon Key
-- [ ] Update `.env`:
+- [ ] Create your user account (Settings → Authentication → Add User)
+  - Use your actual email and password
+- [ ] Copy Project URL and Anon Key from Settings → API
+- [ ] Update `.env` (never commit this file):
   ```
-  VITE_SUPABASE_URL=https://your-project-ref.supabase.co
-  VITE_SUPABASE_ANON_KEY=your-anon-public-key
+  VITE_SUPABASE_URL=https://your-actual-project-ref.supabase.co
+  VITE_SUPABASE_ANON_KEY=your-actual-anon-public-key
   ```
 - [ ] Update `js/supabase-client.js`:
   ```js
-  const SUPABASE_URL = 'https://your-project-ref.supabase.co';
-  const SUPABASE_ANON_KEY = 'your-anon-public-key';
+  const SUPABASE_URL = 'https://your-actual-project-ref.supabase.co';
+  const SUPABASE_ANON_KEY = 'your-actual-anon-public-key';
   ```
 
 ## Step 4: Contact Information
 - [ ] Open `index.html`
 - [ ] Find the "Your agent" section (search for `#about`)
-- [ ] Update license number: `<span>#YOUR_LICENSE</span>`
-- [ ] Update office phone: `<span>(469) 731-6771</span>`
-- [ ] Update email: `<span>your@email.com</span>`
+- [ ] Update license number with your actual license
+- [ ] Update office phone with your actual number
+- [ ] Update email with your actual email address
 
-## Step 5: Social & Marketing Links
-- [ ] Update `.env` with your social media URLs:
+## Step 5: Social & Marketing Links (Optional)
+- [ ] Update `.env` with your social media URLs (if you have them):
   ```
-  FACEBOOK_URL=https://facebook.com/yourpage
-  INSTAGRAM_URL=https://instagram.com/yourprofile
-  LINKEDIN_URL=https://linkedin.com/in/yourprofile
-  YOUTUBE_URL=https://youtube.com/@yourhandle
+  FACEBOOK_URL=https://facebook.com/your-page
+  INSTAGRAM_URL=https://instagram.com/your-profile
+  LINKEDIN_URL=https://linkedin.com/in/your-profile
+  YOUTUBE_URL=https://youtube.com/@your-handle
   ```
-- [ ] Add Google Analytics ID (if using):
+- [ ] Add Google Analytics ID (optional, if you use analytics):
   ```
   GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
   ```
+- [ ] Note: These are stored in `.env` which is not committed to git
 
 ## Step 6: Test Locally
 - [ ] Run verification script:
@@ -128,10 +130,10 @@ Follow these steps to customize the site for your real estate business.
 
 ## Common Issues
 
-### "Drew Sharma" still appears somewhere
-- Check `js/config.js` — make sure values are updated
+### Your name/company still shows as placeholder
+- Check `js/config.js` — make sure all values are updated
 - Reload the page (hard refresh: Ctrl+Shift+R or Cmd+Shift+R)
-- Check browser cache is cleared
+- Clear browser cache if needed
 
 ### Supabase credentials not working
 - Verify URL and key in `js/supabase-client.js`

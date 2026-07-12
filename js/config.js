@@ -3,8 +3,9 @@
 
 export const config = {
   // Agent information
-  agentFirstName: 'Drew',
-  agentLastName: 'Sharma',
+  // ⚠️  UPDATE THESE WITH YOUR ACTUAL NAME AND COMPANY
+  agentFirstName: 'Agent',
+  agentLastName: 'Name',
   companyName: 'Realty',
 
   // Derived (auto-formatted)
@@ -16,14 +17,16 @@ export const config = {
   },
 
   // Location
-  primaryLocation: 'Frisco, TX',
-  serviceAreas: 'Frisco and the surrounding area',
+  // ⚠️  UPDATE THESE WITH YOUR ACTUAL SERVICE AREA
+  primaryLocation: 'City, State',
+  serviceAreas: 'Local service area description',
   buyerRepresentation: 'buyer representation',
 
   // Agent stats
-  yearsInMarket: 14,
-  homesClosedCount: '120+',
-  clientRating: '4.9',
+  // ⚠️  UPDATE THESE WITH YOUR ACTUAL STATS
+  yearsInMarket: 10,
+  homesClosedCount: '100+',
+  clientRating: '5.0',
 
   // Legal
   copyrightYear: new Date().getFullYear(),

@@ -21,24 +21,25 @@ One agent, so skip public sign-up:
 3. That's what you'll use at `/admin/login.html`.
 
 ## 3. Customize branding & site config
-Open [`js/config.js`](./js/config.js) and update your information:
+1. Copy `.env.example` to `.env` and fill in your actual information
+2. Open [`js/config.js`](./js/config.js) and update:
 ```js
 export const config = {
-  agentFirstName: 'Drew',
-  agentLastName: 'Sharma',
-  companyName: 'Realty',
-  primaryLocation: 'Frisco, TX',
-  serviceAreas: 'Frisco and the surrounding area',
-  yearsInMarket: 14,
-  homesClosedCount: '120+',
-  clientRating: '4.9',
+  agentFirstName: 'Your Name',
+  agentLastName: 'Your Last Name',
+  companyName: 'Your Company',
+  primaryLocation: 'City, State',
+  serviceAreas: 'Your service area',
+  yearsInMarket: 10,
+  homesClosedCount: '100+',
+  clientRating: '5.0',
   // ... etc
 };
 ```
 All site pages automatically load and display these values wherever you see
 `{{CONFIG.agentFullName}}`, `{{CONFIG.brandName}}`, etc. in the HTML.
 
-See [`.env.example`](./.env.example) for reference on all available config fields.
+See [`CONFIG_GUIDE.md`](./CONFIG_GUIDE.md) and [`SETUP_CHECKLIST.md`](./SETUP_CHECKLIST.md) for detailed setup instructions.
 
 ## 4. Plug in your Supabase credentials
 Open [`js/supabase-client.js`](./js/supabase-client.js) and replace:
