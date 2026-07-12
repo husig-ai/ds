@@ -535,11 +535,11 @@
   padding: 9px 12px;
   border-radius: var(--radius);
   font-size: 14px;
-  font-weight: 500;
-  color: #C4CBD6;
+  font-weight: 600;
+  color: #E8ECF1;
   text-decoration: none;
 }
-.admin-nav a:hover { background: rgba(111,180,204,0.12); }
+.admin-nav a:hover { background: rgba(111,180,204,0.12); color: #fff; }
 .admin-nav a.active { background: var(--brass); color: #241800; }
 .admin-nav a:focus-visible {
   outline: 2px solid var(--cyan);
