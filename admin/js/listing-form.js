@@ -84,5 +84,5 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  window.location.href = '/admin/listings.html';
+  window.location.href = 'listings.html';
 });

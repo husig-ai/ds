@@ -5,7 +5,7 @@ import { supabase } from '../../js/supabase-client.js';
 export async function requireAuth() {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
-    window.location.href = '/admin/login.html';
+    window.location.href = 'login.html';
     return null;
   }
   return session;
@@ -16,17 +16,6 @@ export function wireSignOut(selector = '#signOutBtn') {
   if (!btn) return;
   btn.addEventListener('click', async () => {
     await supabase.auth.signOut();
-    window.location.href = '/admin/login.html';
-  });
-}
-
-// Highlight the current nav link based on file name.
-export function markActiveNav() {
-  const page = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.admin-nav a').forEach((a) => {
-    const href = a.getAttribute('href');
-    if (href === page || (page === '' && href === 'index.html')) {
-      a.classList.add('active');
-    }
+    window.location.href = 'login.html';
   });
 }

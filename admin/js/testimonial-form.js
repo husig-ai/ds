@@ -69,5 +69,5 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  window.location.href = '/admin/testimonials.html';
+  window.location.href = 'testimonials.html';
 });
