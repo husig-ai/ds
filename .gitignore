@@ -1,0 +1,22 @@
+# OS & IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.env.local
+.env.*.local
+
+# Node (if added in future)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build & dist (if build step added later)
+dist/
+build/
+
+# Local development
+.cache/
+.tmp/

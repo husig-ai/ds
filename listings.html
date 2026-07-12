@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listings — Drew Sharma Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap inner">
+    <a href="index.html" class="brand-mark">Drew Sharma <span>Realty</span></a>
+    <div class="nav-links">
+      <a href="listings.html">Listings</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#intake">Get started</a>
+    </div>
+    <a href="index.html#intake" class="btn btn-brass">Start my search</a>
+  </div>
+</nav>
+
+<div class="wrap" style="padding: 48px 28px;">
+  <div class="top-actions">
+    <h1 style="font-size:30px;">Listings</h1>
+    <div class="pill-row" id="filterRow">
+      <div class="pill selected" data-value="all">All</div>
+      <div class="pill" data-value="for_sale">For sale</div>
+      <div class="pill" data-value="for_rent">For rent</div>
+    </div>
+  </div>
+  <div class="listings-grid" id="listingsGrid">
+    <p class="muted">Loading listings…</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap inner">
+    <span>© 2026 Drew Sharma Realty. All rights reserved.</span>
+    <div>
+      <a href="listings.html">Listings</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#intake">Get started</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/listings.js"></script>
+</body>
+</html>

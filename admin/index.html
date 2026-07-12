@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Overview — Drew Sharma Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-body">
+
+<aside class="admin-sidebar">
+  <div class="brand">
+    <strong>Agent Admin</strong>
+    <div>Drew Sharma Realty</div>
+  </div>
+  <nav class="admin-nav">
+    <a href="index.html" class="active">Overview</a>
+    <a href="leads.html">Leads</a>
+    <a href="listings.html">Listings</a>
+    <a href="testimonials.html">Testimonials</a>
+  </nav>
+  <div class="admin-signout">
+    <button id="signOutBtn">Sign out</button>
+  </div>
+</aside>
+
+<main class="admin-main">
+  <h1>Overview</h1>
+  <div class="stat-grid">
+    <a href="leads.html" class="stat-card"><div class="num" id="statNewLeads">—</div><div class="label">New leads</div></a>
+    <a href="listings.html" class="stat-card"><div class="num" id="statListings">—</div><div class="label">Listings</div></a>
+    <a href="testimonials.html" class="stat-card"><div class="num" id="statTestimonials">—</div><div class="label">Testimonials</div></a>
+  </div>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="listing-form.html" class="btn btn-primary" style="background:var(--brass); color:#241800; text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">+ New listing</a>
+    <a href="testimonial-form.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">+ New testimonial</a>
+    <a href="leads.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">Review leads</a>
+  </div>
+</main>
+
+<script type="module" src="js/overview.js"></script>
+</body>
+</html>

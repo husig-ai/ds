@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leads — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-body">
+
+<aside class="admin-sidebar">
+  <div class="brand"><strong>Agent Admin</strong><div>Drew Sharma Realty</div></div>
+  <nav class="admin-nav">
+    <a href="index.html">Overview</a>
+    <a href="leads.html" class="active">Leads</a>
+    <a href="listings.html">Listings</a>
+    <a href="testimonials.html">Testimonials</a>
+  </nav>
+  <div class="admin-signout"><button id="signOutBtn">Sign out</button></div>
+</aside>
+
+<main class="admin-main">
+  <div class="top-actions">
+    <h1 style="margin:0;">Leads</h1>
+    <select id="statusFilter" style="font-family:'Work Sans',sans-serif; font-size:13px; padding:8px 10px; border:1px solid var(--line); border-radius:3px;">
+      <option value="all">All statuses</option>
+      <option value="new">New</option>
+      <option value="contacted">Contacted</option>
+      <option value="qualified">Qualified</option>
+      <option value="touring">Touring</option>
+      <option value="offer">Offer</option>
+      <option value="closed">Closed</option>
+      <option value="lost">Lost</option>
+    </select>
+  </div>
+  <div class="admin-card-list" id="leadsList">
+    <p class="muted">Loading…</p>
+  </div>
+</main>
+
+<script type="module" src="js/leads.js"></script>
+</body>
+</html>

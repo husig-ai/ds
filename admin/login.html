@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Login — Drew Sharma Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="login-shell">
+  <div class="login-card survey-frame">
+    <h1>Agent login</h1>
+    <p class="sub">Sign in to manage listings, testimonials, and leads.</p>
+    <form id="loginForm">
+      <label class="field">
+        <span class="tag" style="font-family:'IBM Plex Mono',monospace; font-size:11px; display:block; margin-bottom:6px;">Email</span>
+        <input type="email" id="email" required class="input" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:3px; margin-bottom:16px;">
+      </label>
+      <label class="field">
+        <span class="tag" style="font-family:'IBM Plex Mono',monospace; font-size:11px; display:block; margin-bottom:6px;">Password</span>
+        <input type="password" id="password" required class="input" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:3px; margin-bottom:16px;">
+      </label>
+      <p class="error-text" id="loginError" style="display:none;"></p>
+      <button type="submit" class="btn btn-brass" style="width:100%; justify-content:center;" id="loginBtn">Sign in</button>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="js/login.js"></script>
+</body>
+</html>

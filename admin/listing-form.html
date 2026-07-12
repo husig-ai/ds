@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listing form — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-body">
+
+<aside class="admin-sidebar">
+  <div class="brand"><strong>Agent Admin</strong><div>Drew Sharma Realty</div></div>
+  <nav class="admin-nav">
+    <a href="index.html">Overview</a>
+    <a href="leads.html">Leads</a>
+    <a href="listings.html" class="active">Listings</a>
+    <a href="testimonials.html">Testimonials</a>
+  </nav>
+  <div class="admin-signout"><button id="signOutBtn">Sign out</button></div>
+</aside>
+
+<main class="admin-main">
+  <h1 id="formTitle">New listing</h1>
+
+  <form class="admin-form" id="listingForm">
+    <div class="field">
+      <label class="tag">Title *</label>
+      <input type="text" name="title" required>
+    </div>
+    <div class="field">
+      <label class="tag">Description</label>
+      <textarea name="description"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="field"><label class="tag">Address</label><input type="text" name="address"></div>
+      <div class="field"><label class="tag">City</label><input type="text" name="city"></div>
+      <div class="field"><label class="tag">State</label><input type="text" name="state"></div>
+      <div class="field"><label class="tag">Zip</label><input type="text" name="zip"></div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label class="tag">Price (USD)</label><input type="number" min="0" name="price"></div>
+      <div class="field">
+        <label class="tag">Listing type</label>
+        <select name="listing_type">
+          <option value="for_sale">For sale</option>
+          <option value="for_rent">For rent</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="tag">Property type</label>
+        <select name="property_type">
+          <option value="single_family">Single family</option>
+          <option value="condo">Condo</option>
+          <option value="townhouse">Townhouse</option>
+          <option value="multi_family">Multi-family</option>
+          <option value="land">Land</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="tag">Status</label>
+        <select name="status">
+          <option value="active">Active</option>
+          <option value="pending">Pending</option>
+          <option value="sold">Sold</option>
+          <option value="coming_soon">Coming soon</option>
+          <option value="off_market">Off market</option>
+        </select>
+      </div>
+    </div>
+    <div class="four-col">
+      <div class="field"><label class="tag">Bedrooms</label><input type="number" min="0" name="bedrooms"></div>
+      <div class="field"><label class="tag">Bathrooms</label><input type="number" min="0" step="0.5" name="bathrooms"></div>
+      <div class="field"><label class="tag">Square feet</label><input type="number" min="0" name="square_feet"></div>
+      <div class="field"><label class="tag">Year built</label><input type="number" min="0" name="year_built"></div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label class="tag">Lot size</label><input type="text" name="lot_size" placeholder="e.g. 0.25 acres"></div>
+      <div class="field"><label class="tag">MLS number</label><input type="text" name="mls_number"></div>
+    </div>
+    <div class="field">
+      <label class="tag">Image URLs (one per line)</label>
+      <textarea name="image_urls" placeholder="https://example.com/photo1.jpg"></textarea>
+    </div>
+    <div class="field checkbox-row">
+      <input type="checkbox" name="featured" id="featured">
+      <label for="featured">Feature this listing on the homepage</label>
+    </div>
+
+    <p class="error-text" id="formError" style="display:none;"></p>
+
+    <div style="display:flex; gap:12px;">
+      <button type="submit" class="btn btn-brass" id="saveBtn">Create listing</button>
+      <a href="listings.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:11px 20px; border-radius:3px; font-weight:600; font-size:14px;">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<script type="module" src="js/listing-form.js"></script>
+</body>
+</html>
