@@ -5,7 +5,7 @@ import { supabase } from '../../js/supabase-client.js';
 export async function requireAuth() {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
-    window.location.href = './login.html';
+    window.location.href = '/admin/login.html';
     return null;
   }
   return session;
@@ -16,7 +16,7 @@ export function wireSignOut(selector = '#signOutBtn') {
   if (!btn) return;
   btn.addEventListener('click', async () => {
     await supabase.auth.signOut();
-    window.location.href = './login.html';
+    window.location.href = '/admin/login.html';
   });
 }
 

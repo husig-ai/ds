@@ -15,6 +15,7 @@ const isEdit = Boolean(id);
 
 if (isEdit) {
   formTitle.textContent = 'Edit testimonial';
+  document.getElementById('breadcrumbCurrent').textContent = 'Edit testimonial';
   saveBtn.textContent = 'Save changes';
 
   const { data, error } = await supabase.from('testimonials').select('*').eq('id', id).single();
@@ -68,5 +69,5 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  window.location.href = './testimonials.html';
+  window.location.href = '/admin/testimonials.html';
 });

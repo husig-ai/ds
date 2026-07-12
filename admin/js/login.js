@@ -2,7 +2,7 @@ import { supabase } from '../../js/supabase-client.js';
 
 // If already logged in, skip straight to the dashboard.
 const { data: { session } } = await supabase.auth.getSession();
-if (session) window.location.href = './index.html';
+if (session) window.location.href = '/admin/index.html';
 
 const form = document.getElementById('loginForm');
 const errorEl = document.getElementById('loginError');
@@ -27,5 +27,5 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  window.location.href = './index.html';
+  window.location.href = '/admin/index.html';
 });

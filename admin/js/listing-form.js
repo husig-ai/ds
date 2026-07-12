@@ -15,6 +15,7 @@ const isEdit = Boolean(id);
 
 if (isEdit) {
   formTitle.textContent = 'Edit listing';
+  document.getElementById('breadcrumbCurrent').textContent = 'Edit listing';
   saveBtn.textContent = 'Save changes';
 
   const { data, error } = await supabase.from('listings').select('*').eq('id', id).single();
@@ -83,5 +84,5 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  window.location.href = './listings.html';
+  window.location.href = '/admin/listings.html';
 });

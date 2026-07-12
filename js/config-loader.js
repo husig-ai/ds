@@ -49,5 +49,20 @@ function getConfigValue(key) {
   return key.split('.').reduce((obj, k) => obj?.[k], config) || '';
 }
 
-// Auto-load when script is imported
-loadConfig();
+// Wait for environment to load, then auto-load config
+async function init() {
+  // Wait for window.__env to be defined (loaded by load-env.js)
+  let attempts = 0;
+  while (!window.__env && attempts < 100) {
+    await new Promise(resolve => setTimeout(resolve, 10));
+    attempts++;
+  }
+
+  if (!window.__env) {
+    console.warn('Environment not loaded after timeout - using defaults');
+  }
+
+  loadConfig();
+}
+
+init();

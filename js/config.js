@@ -11,10 +11,16 @@ function getEnv(key, defaultValue) {
 }
 
 export const config = {
-  // Agent information (loaded from .env)
-  agentFirstName: getEnv('VITE_AGENT_FIRST_NAME', 'Drew'),
-  agentLastName: getEnv('VITE_AGENT_LAST_NAME', 'Sharma'),
-  companyName: getEnv('VITE_COMPANY_NAME', 'Realty'),
+  // Agent information (loaded from .env at runtime)
+  get agentFirstName() {
+    return getEnv('VITE_AGENT_FIRST_NAME', 'Drew');
+  },
+  get agentLastName() {
+    return getEnv('VITE_AGENT_LAST_NAME', 'Sharma');
+  },
+  get companyName() {
+    return getEnv('VITE_COMPANY_NAME', 'Realty');
+  },
 
   // Derived (auto-formatted)
   get agentFullName() {
@@ -24,18 +30,30 @@ export const config = {
     return `${this.agentFullName} ${this.companyName}`;
   },
 
-  // Location (loaded from .env)
-  primaryLocation: getEnv('VITE_PRIMARY_LOCATION', 'Frisco, TX'),
-  serviceAreas: getEnv('VITE_SERVICE_AREAS', 'Frisco and the surrounding North Texas suburbs'),
+  // Location (loaded from .env at runtime)
+  get primaryLocation() {
+    return getEnv('VITE_PRIMARY_LOCATION', 'Frisco, TX');
+  },
+  get serviceAreas() {
+    return getEnv('VITE_SERVICE_AREAS', 'Frisco and the surrounding North Texas suburbs');
+  },
   buyerRepresentation: 'buyer representation',
 
-  // Agent stats (loaded from .env)
-  yearsInMarket: parseInt(getEnv('VITE_YEARS_IN_MARKET', '14')),
-  homesClosedCount: getEnv('VITE_HOMES_CLOSED_COUNT', '120+'),
-  clientRating: getEnv('VITE_CLIENT_RATING', '4.9'),
+  // Agent stats (loaded from .env at runtime)
+  get yearsInMarket() {
+    return parseInt(getEnv('VITE_YEARS_IN_MARKET', '14'));
+  },
+  get homesClosedCount() {
+    return getEnv('VITE_HOMES_CLOSED_COUNT', '120+');
+  },
+  get clientRating() {
+    return getEnv('VITE_CLIENT_RATING', '4.9');
+  },
 
   // Legal
-  copyrightYear: new Date().getFullYear(),
+  get copyrightYear() {
+    return new Date().getFullYear();
+  },
 };
 
 // Optional: Load from window.appConfig if defined globally (for runtime config override)

@@ -530,6 +530,19 @@
 }
 .admin-main h1 { font-size: 26px; margin-bottom: 24px; }
 
+.breadcrumb {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.breadcrumb a { color: var(--ink-soft); text-decoration: none; }
+.breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 6px; opacity: 0.5; }
+.breadcrumb .current { color: var(--ink); }
+
 .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
 .stat-card {
   background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
