@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://husig.ai/ds/sitemap.xml

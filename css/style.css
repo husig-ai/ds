@@ -151,10 +151,23 @@
     color: var(--ink);
   }
   .btn-outline:hover { background: var(--ink); color: var(--paper); }
+  .btn-outline-dark {
+    background: transparent;
+    border: 1px solid var(--ink-soft);
+    color: #C4CBD6;
+  }
+  .btn-outline-dark:hover { background: var(--ink-soft); color: #fff; }
   .btn-ghost {
     background: transparent;
     color: var(--ink-soft);
     padding: 11px 6px;
+  }
+  .btn:focus-visible,
+  .nav-links a:focus-visible,
+  .pill:focus-visible,
+  .see-all:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 2px;
   }
 
   /* ---------- hero ---------- */
@@ -411,6 +424,12 @@
     outline: none;
     border-color: var(--brass);
   }
+  .field input:focus-visible,
+  .field textarea:focus-visible,
+  .field select:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 1px;
+  }
   .field textarea { min-height: 80px; resize: vertical; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
@@ -502,6 +521,14 @@
 }
 .admin-sidebar .brand strong { color: #fff; font-family:'Fraunces',serif; font-size:16px; }
 .admin-sidebar .brand div { font-size: 11px; color: var(--cyan); margin-top: 2px; }
+.admin-sidebar .brand .back-to-site {
+  display: block;
+  font-size: 11px;
+  color: var(--cyan);
+  text-decoration: none;
+  margin-top: 8px;
+}
+.admin-sidebar .brand .back-to-site:hover { color: #fff; text-decoration: underline; }
 .admin-nav { flex: 1; padding: 14px 10px; display: flex; flex-direction: column; gap: 4px; }
 .admin-nav a {
   display: block;
@@ -514,6 +541,10 @@
 }
 .admin-nav a:hover { background: rgba(111,180,204,0.12); }
 .admin-nav a.active { background: var(--brass); color: #241800; }
+.admin-nav a:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+}
 .admin-signout {
   padding: 14px 20px;
   border-top: 1px solid rgba(111,180,204,0.2);
