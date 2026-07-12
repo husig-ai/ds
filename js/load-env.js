@@ -3,6 +3,10 @@
 // Usage: <script src="js/load-env.js"></script>
 
 async function loadEnv() {
+  // If js/env.js (generated at deploy time from GitHub Secrets) already
+  // populated this, don't fall back to fetching the raw .env file.
+  if (window.__env) return;
+
   try {
     const response = await fetch('/.env');
     if (!response.ok) {

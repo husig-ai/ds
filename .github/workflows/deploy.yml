@@ -1,0 +1,84 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate js/env.js from GitHub Secrets
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_AGENT_FIRST_NAME: ${{ secrets.VITE_AGENT_FIRST_NAME }}
+          VITE_AGENT_LAST_NAME: ${{ secrets.VITE_AGENT_LAST_NAME }}
+          VITE_COMPANY_NAME: ${{ secrets.VITE_COMPANY_NAME }}
+          VITE_PRIMARY_LOCATION: ${{ secrets.VITE_PRIMARY_LOCATION }}
+          VITE_SERVICE_AREAS: ${{ secrets.VITE_SERVICE_AREAS }}
+          VITE_YEARS_IN_MARKET: ${{ secrets.VITE_YEARS_IN_MARKET }}
+          VITE_HOMES_CLOSED_COUNT: ${{ secrets.VITE_HOMES_CLOSED_COUNT }}
+          VITE_CLIENT_RATING: ${{ secrets.VITE_CLIENT_RATING }}
+          VITE_COPYRIGHT_YEAR: ${{ secrets.VITE_COPYRIGHT_YEAR }}
+          AGENT_LICENSE_NUMBER: ${{ secrets.AGENT_LICENSE_NUMBER }}
+          AGENT_OFFICE_PHONE: ${{ secrets.AGENT_OFFICE_PHONE }}
+          AGENT_EMAIL: ${{ secrets.AGENT_EMAIL }}
+          AGENT_MOBILE_PHONE: ${{ secrets.AGENT_MOBILE_PHONE }}
+          COMPANY_ADDRESS: ${{ secrets.COMPANY_ADDRESS }}
+          COMPANY_PHONE: ${{ secrets.COMPANY_PHONE }}
+          COMPANY_EMAIL: ${{ secrets.COMPANY_EMAIL }}
+          COMPANY_WEBSITE: ${{ secrets.COMPANY_WEBSITE }}
+          BROKER_NAME: ${{ secrets.BROKER_NAME }}
+          BROKER_LICENSE: ${{ secrets.BROKER_LICENSE }}
+          BROKER_FIRM: ${{ secrets.BROKER_FIRM }}
+          FACEBOOK_URL: ${{ secrets.FACEBOOK_URL }}
+          INSTAGRAM_URL: ${{ secrets.INSTAGRAM_URL }}
+          LINKEDIN_URL: ${{ secrets.LINKEDIN_URL }}
+          YOUTUBE_URL: ${{ secrets.YOUTUBE_URL }}
+          GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+          GOOGLE_TAG_MANAGER_ID: ${{ secrets.GOOGLE_TAG_MANAGER_ID }}
+        run: |
+          node -e '
+            const fs = require("fs");
+            const keys = [
+              "VITE_SUPABASE_URL","VITE_SUPABASE_ANON_KEY","VITE_AGENT_FIRST_NAME","VITE_AGENT_LAST_NAME",
+              "VITE_COMPANY_NAME","VITE_PRIMARY_LOCATION","VITE_SERVICE_AREAS","VITE_YEARS_IN_MARKET",
+              "VITE_HOMES_CLOSED_COUNT","VITE_CLIENT_RATING","VITE_COPYRIGHT_YEAR","AGENT_LICENSE_NUMBER",
+              "AGENT_OFFICE_PHONE","AGENT_EMAIL","AGENT_MOBILE_PHONE","COMPANY_ADDRESS","COMPANY_PHONE",
+              "COMPANY_EMAIL","COMPANY_WEBSITE","BROKER_NAME","BROKER_LICENSE","BROKER_FIRM",
+              "FACEBOOK_URL","INSTAGRAM_URL","LINKEDIN_URL","YOUTUBE_URL","GOOGLE_ANALYTICS_ID","GOOGLE_TAG_MANAGER_ID"
+            ];
+            const env = {};
+            for (const k of keys) env[k] = process.env[k] || "";
+            fs.writeFileSync("js/env.js", "window.__env = " + JSON.stringify(env, null, 2) + ";\n");
+          '
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

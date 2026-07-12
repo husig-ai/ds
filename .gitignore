@@ -11,6 +11,7 @@
 .env.local
 .env.*.local
 .env.production.local
+js/env.js
 
 # Node (if added in future)
 node_modules/
