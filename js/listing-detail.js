@@ -1,16 +1,10 @@
 import { supabase } from './supabase-client.js';
-import { formatPrice } from './components.js';
+import { formatPrice, escapeHtml } from './components.js';
 import { showError } from './errors.js';
 
 const container = document.getElementById('listingContent');
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
-
-function escapeHtml(text) {
-  if (!text) return '';
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
 
 async function load() {
   if (!id) {
@@ -40,11 +34,17 @@ async function load() {
   const addr = [l.address, l.city, l.state, l.zip].filter(Boolean).join(', ');
   const cover = l.image_urls && l.image_urls[0];
 
+  const mapHTML = addr ? `
+    <div style="margin-bottom:32px;">
+      <iframe src="https://www.google.com/maps?q=${encodeURIComponent(addr)}&output=embed" style="border:0; border-radius:6px; width:100%; height:300px; display:block;" loading="lazy" title="Map showing ${escapeHtml(addr)}"></iframe>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}" target="_blank" rel="noopener" style="display:inline-block; margin-top:10px; font-size:13px; color:var(--brass-dark); text-decoration:none;">Get Directions →</a>
+    </div>` : '';
+
   container.innerHTML = `
     <a href="listings.html" style="font-size:13px; color:var(--ink-soft); text-decoration:none; display:inline-block; margin-bottom:16px;">← Back to listings</a>
 
     <div style="border-radius:6px; overflow:hidden; background:var(--paper-dim); aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); margin-bottom:32px;">
-      ${cover ? `<img src="${cover}" alt="${l.title}" style="width:100%; height:100%; object-fit:cover;">` : 'No photo available'}
+      ${cover ? `<img src="${cover}" alt="${escapeHtml(l.title)}" style="width:100%; height:100%; object-fit:cover;">` : 'No photo available'}
     </div>
 
     <div style="display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:8px;">
@@ -61,6 +61,8 @@ async function load() {
       ${l.square_feet != null ? statBlock(l.square_feet.toLocaleString(), 'Sqft') : ''}
       ${l.year_built != null ? statBlock(l.year_built, 'Year built') : ''}
     </div>
+
+    ${mapHTML}
 
     ${l.description ? `<p style="line-height:1.7; white-space:pre-line; margin-bottom:32px;">${escapeHtml(l.description)}</p>` : ''}
 
