@@ -21,23 +21,23 @@ One agent, so skip public sign-up:
 3. That's what you'll use at `/admin/login.html`.
 
 ## 3. Customize branding & site config
-1. Copy `.env.example` to `.env` and fill in your actual information
-2. Open [`js/config.js`](./js/config.js) and update:
-```js
-export const config = {
-  agentFirstName: 'Your Name',
-  agentLastName: 'Your Last Name',
-  companyName: 'Your Company',
-  primaryLocation: 'City, State',
-  serviceAreas: 'Your service area',
-  yearsInMarket: 10,
-  homesClosedCount: '100+',
-  clientRating: '5.0',
-  // ... etc
-};
+Edit [`.env`](./.env) with your information — this file is loaded automatically by the site:
+```env
+VITE_AGENT_FIRST_NAME=Your Name
+VITE_AGENT_LAST_NAME=Your Last Name
+VITE_COMPANY_NAME=Your Company
+VITE_PRIMARY_LOCATION=City, State
+VITE_SERVICE_AREAS=Your service area
+VITE_YEARS_IN_MARKET=12
+VITE_HOMES_CLOSED_COUNT=350+
+VITE_CLIENT_RATING=4.9
 ```
-All site pages automatically load and display these values wherever you see
-`{{CONFIG.agentFullName}}`, `{{CONFIG.brandName}}`, etc. in the HTML.
+
+**How it works:**
+- `.env` is loaded by `js/load-env.js` when the page starts
+- `js/config.js` reads values from `.env` and provides them to the site
+- All `{{CONFIG.xxx}}` placeholders in HTML are replaced with actual values
+- Never commit `.env` to git (it's in `.gitignore`) — keep it local only
 
 See [`CONFIG_GUIDE.md`](./CONFIG_GUIDE.md) and [`SETUP_CHECKLIST.md`](./SETUP_CHECKLIST.md) for detailed setup instructions.
 

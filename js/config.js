@@ -1,12 +1,20 @@
 // Site Configuration
-// Customize these values for your real estate agent site
+// Values come from environment variables (loaded from .env)
+// Set via window.__env object or update defaults directly
+
+function getEnv(key, defaultValue) {
+  // Check if window.__env is defined (for runtime config)
+  if (typeof window !== 'undefined' && window.__env && window.__env[key]) {
+    return window.__env[key];
+  }
+  return defaultValue;
+}
 
 export const config = {
   // Agent information
-  // ⚠️  UPDATE THESE WITH YOUR ACTUAL NAME AND COMPANY
-  agentFirstName: 'Agent',
-  agentLastName: 'Name',
-  companyName: 'Realty',
+  agentFirstName: getEnv('VITE_AGENT_FIRST_NAME', 'Agent'),
+  agentLastName: getEnv('VITE_AGENT_LAST_NAME', 'Name'),
+  companyName: getEnv('VITE_COMPANY_NAME', 'Realty'),
 
   // Derived (auto-formatted)
   get agentFullName() {
@@ -17,39 +25,20 @@ export const config = {
   },
 
   // Location
-  // ⚠️  UPDATE THESE WITH YOUR ACTUAL SERVICE AREA
-  primaryLocation: 'City, State',
-  serviceAreas: 'Local service area description',
+  primaryLocation: getEnv('VITE_PRIMARY_LOCATION', 'City, State'),
+  serviceAreas: getEnv('VITE_SERVICE_AREAS', 'Local service area description'),
   buyerRepresentation: 'buyer representation',
 
   // Agent stats
-  // ⚠️  UPDATE THESE WITH YOUR ACTUAL STATS
-  yearsInMarket: 10,
-  homesClosedCount: '100+',
-  clientRating: '5.0',
+  yearsInMarket: parseInt(getEnv('VITE_YEARS_IN_MARKET', '10')),
+  homesClosedCount: getEnv('VITE_HOMES_CLOSED_COUNT', '100+'),
+  clientRating: getEnv('VITE_CLIENT_RATING', '5.0'),
 
   // Legal
   copyrightYear: new Date().getFullYear(),
-
-  // Load from environment if available (for deployment)
-  static: {
-    load(envPrefix = 'VITE_') {
-      if (typeof process !== 'undefined' && process.env) {
-        this.agentFirstName = process.env[`${envPrefix}AGENT_FIRST_NAME`] || this.agentFirstName;
-        this.agentLastName = process.env[`${envPrefix}AGENT_LAST_NAME`] || this.agentLastName;
-        this.companyName = process.env[`${envPrefix}COMPANY_NAME`] || this.companyName;
-        this.primaryLocation = process.env[`${envPrefix}PRIMARY_LOCATION`] || this.primaryLocation;
-        this.serviceAreas = process.env[`${envPrefix}SERVICE_AREAS`] || this.serviceAreas;
-        this.yearsInMarket = parseInt(process.env[`${envPrefix}YEARS_IN_MARKET`]) || this.yearsInMarket;
-        this.homesClosedCount = process.env[`${envPrefix}HOMES_CLOSED_COUNT`] || this.homesClosedCount;
-        this.clientRating = process.env[`${envPrefix}CLIENT_RATING`] || this.clientRating;
-      }
-      return this;
-    }
-  }
 };
 
-// Optional: Load from window.appConfig if defined globally (for runtime config)
+// Optional: Load from window.appConfig if defined globally (for runtime config override)
 if (typeof window !== 'undefined' && window.appConfig) {
   Object.assign(config, window.appConfig);
 }

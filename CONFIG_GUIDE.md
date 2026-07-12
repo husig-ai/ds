@@ -76,9 +76,17 @@ The configuration values are used throughout the site:
 
 ## How It Works
 
-1. **`js/config.js`** — Contains your configuration object
-2. **`js/config-loader.js`** — Automatically finds all `{{CONFIG.xxx}}` placeholders in the page HTML and replaces them with actual values
-3. **Every HTML page** imports `config-loader.js` first, so placeholders are replaced before the page renders
+1. **`.env`** — Contains your actual configuration values (not committed to git)
+2. **`js/load-env.js`** — Loads the `.env` file and makes values available to the app
+   - Runs automatically when the page loads
+   - Parses `.env` file format (KEY=VALUE)
+   - Stores values in `window.__env`
+3. **`js/config.js`** — Reads from `window.__env` and provides configuration
+   - Uses `getEnv()` helper function to safely read environment variables
+   - Falls back to defaults if `.env` is not found
+   - Provides computed values like `brandName` and `agentFullName`
+4. **`js/config-loader.js`** — Automatically finds all `{{CONFIG.xxx}}` placeholders in the HTML and replaces them with actual values
+5. **Every HTML page** includes both `load-env.js` and `config-loader.js` so placeholders are replaced before rendering
 
 ## Updating Branding
 
