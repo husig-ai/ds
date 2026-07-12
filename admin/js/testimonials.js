@@ -1,5 +1,6 @@
 import { supabase } from '../../js/supabase-client.js';
 import { requireAuth, wireSignOut } from './admin-auth.js';
+import { showError } from '../../js/errors.js';
 
 await requireAuth();
 wireSignOut();
@@ -21,7 +22,12 @@ async function load() {
       e.stopPropagation();
       const id = btn.dataset.togglePublish;
       const current = btn.dataset.published === 'true';
-      await supabase.from('testimonials').update({ published: !current }).eq('id', id);
+      const { error } = await supabase.from('testimonials').update({ published: !current }).eq('id', id);
+      if (error) {
+        console.error('Failed to update testimonial:', error);
+        showError('Could not update testimonial: ' + error.message);
+        return;
+      }
       load();
     });
   });
@@ -30,7 +36,12 @@ async function load() {
     btn.addEventListener('click', async (e) => {
       e.stopPropagation();
       if (!confirm('Delete this testimonial? This cannot be undone.')) return;
-      await supabase.from('testimonials').delete().eq('id', btn.dataset.delete);
+      const { error } = await supabase.from('testimonials').delete().eq('id', btn.dataset.delete);
+      if (error) {
+        console.error('Failed to delete testimonial:', error);
+        showError('Could not delete testimonial: ' + error.message);
+        return;
+      }
       load();
     });
   });

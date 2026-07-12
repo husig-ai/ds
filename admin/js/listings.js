@@ -1,5 +1,6 @@
 import { supabase } from '../../js/supabase-client.js';
 import { requireAuth, wireSignOut } from './admin-auth.js';
+import { showError } from '../../js/errors.js';
 
 await requireAuth();
 wireSignOut();
@@ -27,7 +28,12 @@ async function load() {
   wrap.querySelectorAll('[data-delete]').forEach((btn) => {
     btn.addEventListener('click', async () => {
       if (!confirm('Delete this listing? This cannot be undone.')) return;
-      await supabase.from('listings').delete().eq('id', btn.dataset.delete);
+      const { error } = await supabase.from('listings').delete().eq('id', btn.dataset.delete);
+      if (error) {
+        console.error('Failed to delete listing:', error);
+        showError('Could not delete listing: ' + error.message);
+        return;
+      }
       load();
     });
   });

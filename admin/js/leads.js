@@ -1,5 +1,6 @@
 import { supabase } from '../../js/supabase-client.js';
 import { requireAuth, wireSignOut } from './admin-auth.js';
+import { showError } from '../../js/errors.js';
 
 await requireAuth();
 wireSignOut();
@@ -109,7 +110,12 @@ function wireRows() {
     sel.addEventListener('change', async (e) => {
       e.stopPropagation();
       const id = sel.dataset.status;
-      await supabase.from('leads').update({ status: sel.value }).eq('id', id);
+      const { error } = await supabase.from('leads').update({ status: sel.value }).eq('id', id);
+      if (error) {
+        console.error('Failed to update lead status:', error);
+        showError('Could not update status: ' + error.message);
+        return;
+      }
       const lead = allLeads.find((l) => l.id === id);
       if (lead) lead.status = sel.value;
       render();
@@ -120,7 +126,11 @@ function wireRows() {
     ta.addEventListener('click', (e) => e.stopPropagation());
     ta.addEventListener('blur', async () => {
       const id = ta.dataset.notes;
-      await supabase.from('leads').update({ agent_notes: ta.value }).eq('id', id);
+      const { error } = await supabase.from('leads').update({ agent_notes: ta.value }).eq('id', id);
+      if (error) {
+        console.error('Failed to save notes:', error);
+        showError('Could not save notes: ' + error.message);
+      }
     });
   });
 
@@ -128,7 +138,12 @@ function wireRows() {
     btn.addEventListener('click', async (e) => {
       e.stopPropagation();
       if (!confirm('Delete this lead? This cannot be undone.')) return;
-      await supabase.from('leads').delete().eq('id', btn.dataset.delete);
+      const { error } = await supabase.from('leads').delete().eq('id', btn.dataset.delete);
+      if (error) {
+        console.error('Failed to delete lead:', error);
+        showError('Could not delete lead: ' + error.message);
+        return;
+      }
       allLeads = allLeads.filter((l) => l.id !== btn.dataset.delete);
       render();
     });

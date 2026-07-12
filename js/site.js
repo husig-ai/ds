@@ -1,12 +1,6 @@
 import { supabase } from './supabase-client.js';
-import { listingCardHTML, formatPrice } from './components.js';
+import { listingCardHTML, testimonialCardHTML } from './components.js';
 import { showError, showSuccess } from './errors.js';
-
-function escapeHtml(text) {
-  if (!text) return '';
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
 
 // ---------- Featured listings ----------
 
@@ -42,17 +36,6 @@ async function loadFeaturedListings() {
 }
 
 // ---------- Featured testimonials ----------
-function testimonialCardHTML(t) {
-  const stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
-  return `
-    <div class="test-card">
-      <div class="stars" aria-label="${t.rating} out of 5 stars">${stars}</div>
-      <p class="quote">"${escapeHtml(t.quote)}"</p>
-      <div class="who">${escapeHtml(t.client_name)}</div>
-      <div class="loc">${escapeHtml(t.client_location || '')}</div>
-    </div>`;
-}
-
 async function loadFeaturedTestimonials() {
   const el = document.getElementById('featuredTestimonials');
   if (!el) return;
@@ -195,8 +178,6 @@ function initIntakeForm() {
         additional_notes: val('additional_notes'),
       };
 
-      console.log('Submitting form data:', payload);
-
       // Add timeout to prevent hanging
       const submitPromise = supabase.from('leads').insert(payload);
       const timeoutPromise = new Promise((_, reject) =>
@@ -218,7 +199,6 @@ function initIntakeForm() {
         ? `Thanks, ${firstName} — I've got your details and I'll follow up shortly with homes that match what you're looking for.`
         : `Thanks — I've got your details and I'll follow up shortly with homes that match what you're looking for.`;
 
-      console.log('Form submitted successfully!');
       showSuccess('Form submitted successfully!');
       donePanel.querySelector('p').textContent = message;
       formSteps.style.display = 'none';

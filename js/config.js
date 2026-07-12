@@ -55,8 +55,3 @@ export const config = {
     return new Date().getFullYear();
   },
 };
-
-// Optional: Load from window.appConfig if defined globally (for runtime config override)
-if (typeof window !== 'undefined' && window.appConfig) {
-  Object.assign(config, window.appConfig);
-}
