@@ -17,10 +17,10 @@
     <div>{{CONFIG.brandName}}</div>
   </div>
   <nav class="admin-nav">
-    <a href="/admin/index.html" class="active">Overview</a>
-    <a href="/admin/leads.html">Leads</a>
-    <a href="/admin/listings.html">Listings</a>
-    <a href="/admin/testimonials.html">Testimonials</a>
+    <a href="index.html" class="active">Overview</a>
+    <a href="leads.html">Leads</a>
+    <a href="listings.html">Listings</a>
+    <a href="testimonials.html">Testimonials</a>
   </nav>
   <div class="admin-signout">
     <button id="signOutBtn">Sign out</button>
@@ -31,14 +31,14 @@
   <div class="breadcrumb"><span class="current">Admin</span></div>
   <h1>Overview</h1>
   <div class="stat-grid">
-    <a href="/admin/leads.html" class="stat-card"><div class="num" id="statNewLeads">—</div><div class="label">New leads</div></a>
-    <a href="/admin/listings.html" class="stat-card"><div class="num" id="statListings">—</div><div class="label">Listings</div></a>
-    <a href="/admin/testimonials.html" class="stat-card"><div class="num" id="statTestimonials">—</div><div class="label">Testimonials</div></a>
+    <a href="leads.html" class="stat-card"><div class="num" id="statNewLeads">—</div><div class="label">New leads</div></a>
+    <a href="listings.html" class="stat-card"><div class="num" id="statListings">—</div><div class="label">Listings</div></a>
+    <a href="testimonials.html" class="stat-card"><div class="num" id="statTestimonials">—</div><div class="label">Testimonials</div></a>
   </div>
   <div style="display:flex; gap:12px; flex-wrap:wrap;">
-    <a href="/admin/listing-form.html" class="btn btn-primary" style="background:var(--brass); color:#241800; text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">+ New listing</a>
-    <a href="/admin/testimonial-form.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">+ New testimonial</a>
-    <a href="/admin/leads.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">Review leads</a>
+    <a href="listing-form.html" class="btn btn-primary" style="background:var(--brass); color:#241800; text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">+ New listing</a>
+    <a href="testimonial-form.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">+ New testimonial</a>
+    <a href="leads.html" class="btn btn-secondary" style="background:#fff; border:1px solid var(--line); text-decoration:none; padding:10px 16px; border-radius:3px; font-weight:600; font-size:14px;">Review leads</a>
   </div>
 </main>
 
@@ -46,7 +46,7 @@
 <script src="../js/load-env.js"></script>
 <script type="module">
   import '../js/config-loader.js';
-  import '/admin/js/overview.js';
+  import './js/overview.js';
 </script>
 </body>
 </html>

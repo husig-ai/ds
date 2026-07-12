@@ -14,16 +14,16 @@
 <aside class="admin-sidebar">
   <div class="brand"><strong>Agent Admin</strong><div>{{CONFIG.brandName}}</div></div>
   <nav class="admin-nav">
-    <a href="/admin/index.html">Overview</a>
-    <a href="/admin/leads.html" class="active">Leads</a>
-    <a href="/admin/listings.html">Listings</a>
-    <a href="/admin/testimonials.html">Testimonials</a>
+    <a href="index.html">Overview</a>
+    <a href="leads.html" class="active">Leads</a>
+    <a href="listings.html">Listings</a>
+    <a href="testimonials.html">Testimonials</a>
   </nav>
   <div class="admin-signout"><button id="signOutBtn">Sign out</button></div>
 </aside>
 
 <main class="admin-main">
-  <div class="breadcrumb"><a href="/admin/index.html">Admin</a><span class="sep">/</span><span class="current">Leads</span></div>
+  <div class="breadcrumb"><a href="index.html">Admin</a><span class="sep">/</span><span class="current">Leads</span></div>
   <div class="top-actions">
     <h1 style="margin:0;">Leads</h1>
     <select id="statusFilter" style="font-family:'Work Sans',sans-serif; font-size:13px; padding:8px 10px; border:1px solid var(--line); border-radius:3px;">
@@ -46,7 +46,7 @@
 <script src="../js/load-env.js"></script>
 <script type="module">
   import '../js/config-loader.js';
-  import '/admin/js/leads.js';
+  import './js/leads.js';
 </script>
 </body>
 </html>
