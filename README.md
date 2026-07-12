@@ -1,4 +1,4 @@
-# Drew Sharma Realty — static site (no build step)
+# Real Estate Agent Static Site — no build step
 
 Plain HTML/CSS/JS. No React, no bundler. Talks directly to Supabase from
 the browser using the `@supabase/supabase-js` ESM build off a CDN. Deploys
@@ -20,24 +20,43 @@ One agent, so skip public sign-up:
 2. Enter your email + password, toggle **Auto Confirm**.
 3. That's what you'll use at `/admin/login.html`.
 
-## 3. Plug in your Supabase credentials
+## 3. Customize branding & site config
+Open [`js/config.js`](./js/config.js) and update your information:
+```js
+export const config = {
+  agentFirstName: 'Drew',
+  agentLastName: 'Sharma',
+  companyName: 'Realty',
+  primaryLocation: 'Frisco, TX',
+  serviceAreas: 'Frisco and the surrounding area',
+  yearsInMarket: 14,
+  homesClosedCount: '120+',
+  clientRating: '4.9',
+  // ... etc
+};
+```
+All site pages automatically load and display these values wherever you see
+`{{CONFIG.agentFullName}}`, `{{CONFIG.brandName}}`, etc. in the HTML.
+
+See [`.env.example`](./.env.example) for reference on all available config fields.
+
+## 4. Plug in your Supabase credentials
 Open [`js/supabase-client.js`](./js/supabase-client.js) and replace:
 ```js
 const SUPABASE_URL = 'https://YOUR-PROJECT-REF.supabase.co';
 const SUPABASE_ANON_KEY = 'YOUR-ANON-PUBLIC-KEY';
 ```
-This is the **only** file with config in it — every page and every admin
-script imports the client from here. The anon key is safe to expose in a
-static site; it only grants what the RLS policies allow.
+The anon key is safe to expose in a static site; it only grants what the
+Row Level Security policies allow.
 
-## 4. Verify setup
+## 5. Verify setup
 Before running locally, verify your configuration:
 ```bash
 bash scripts/verify-setup.sh
 ```
 This checks that Supabase credentials are filled in before you start.
 
-## 5. Run locally
+## 6. Run locally
 No build step — just serve the folder. Any static server works, e.g.:
 ```bash
 npx serve .
@@ -49,7 +68,7 @@ Then open `http://localhost:3000`.
 
 Admin panel is at `/admin/login.html`.
 
-## 6. Deploy to GitHub Pages
+## 7. Deploy to GitHub Pages
 1. Verify setup with `bash scripts/verify-setup.sh`.
 2. Push this folder to a GitHub repo.
 3. Repo **Settings → Pages → Build and deployment → Source** → **Deploy

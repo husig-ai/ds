@@ -12,7 +12,7 @@
 <body class="admin-body">
 
 <aside class="admin-sidebar">
-  <div class="brand"><strong>Agent Admin</strong><div>Drew Sharma Realty</div></div>
+  <div class="brand"><strong>Agent Admin</strong><div>{{CONFIG.brandName}}</div></div>
   <nav class="admin-nav">
     <a href="index.html">Overview</a>
     <a href="leads.html">Leads</a>
@@ -32,6 +32,9 @@
   </div>
 </main>
 
-<script type="module" src="js/testimonials.js"></script>
+<script type="module">
+  import '../js/config-loader.js';
+  import './js/testimonials.js';
+</script>
 </body>
 </html>

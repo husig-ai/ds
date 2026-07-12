@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Testimonials — Drew Sharma Realty</title>
+<title>Testimonials — {{CONFIG.brandName}}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 
 <nav>
   <div class="wrap inner">
-    <a href="index.html" class="brand-mark">Drew Sharma <span>Realty</span></a>
+    <a href="index.html" class="brand-mark">{{CONFIG.agentFullName}} <span>{{CONFIG.companyName}}</span></a>
     <div class="nav-links">
       <a href="listings.html">Listings</a>
       <a href="testimonials.html">Testimonials</a>
@@ -33,7 +33,7 @@
 
 <footer>
   <div class="wrap inner">
-    <span>© 2026 Drew Sharma Realty. All rights reserved.</span>
+    <span>© {{CONFIG.copyrightYear}} {{CONFIG.brandName}}. All rights reserved.</span>
     <div>
       <a href="listings.html">Listings</a>
       <a href="testimonials.html">Testimonials</a>
@@ -43,6 +43,9 @@
   </div>
 </footer>
 
-<script type="module" src="js/testimonials.js"></script>
+<script type="module">
+  import './js/config-loader.js';
+  import './js/testimonials.js';
+</script>
 </body>
 </html>
