@@ -99,7 +99,7 @@
   .dim-divider .tick-line::after { right: 0; }
 
   /* ---------- nav ---------- */
-  nav {
+  body > nav {
     position: sticky;
     top: 0;
     z-index: 40;
