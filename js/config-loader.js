@@ -34,7 +34,7 @@ export function loadConfig() {
   });
 
   // Also update element attributes (like href, alt, etc.)
-  document.querySelectorAll('[*]').forEach(el => {
+  document.querySelectorAll('*').forEach(el => {
     Array.from(el.attributes).forEach(attr => {
       if (attr.value.includes('{{CONFIG')) {
         attr.value = attr.value.replace(/{{CONFIG\.([^}]+)}}/g, (match, key) => {

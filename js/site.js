@@ -122,9 +122,20 @@ function initIntakeForm() {
     });
   });
 
-  function showError(msg) {
-    errorEl.textContent = msg;
-    errorEl.style.display = msg ? 'block' : 'none';
+  function showFormError(msg) {
+    if (errorEl) {
+      errorEl.textContent = msg;
+      errorEl.style.display = msg ? 'block' : 'none';
+    }
+    // Also show global error if it exists
+    if (msg) {
+      try {
+        showError(msg);
+      } catch (e) {
+        // Fallback if global error handler not available
+        console.error('Form error:', msg);
+      }
+    }
   }
 
   function render() {
@@ -133,7 +144,7 @@ function initIntakeForm() {
     stepMeta.textContent = `Step ${current + 1} of ${steps.length} — ${stepNames[current]}`;
     backBtn.disabled = current === 0;
     nextBtn.textContent = current === steps.length - 1 ? 'Submit' : 'Continue';
-    showError('');
+    showFormError('');
   }
 
   function validateCurrent() {
@@ -141,11 +152,11 @@ function initIntakeForm() {
       const name = form.querySelector('[name="full_name"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       if (!name || !email) {
-        showError('Please fill in your name and email to continue.');
+        showFormError('Please fill in your name and email to continue.');
         return false;
       }
       if (!isValidEmail(email)) {
-        showError('Please enter a valid email address.');
+        showFormError('Please enter a valid email address.');
         return false;
       }
     }
@@ -159,7 +170,7 @@ function initIntakeForm() {
   async function submitLead() {
     nextBtn.disabled = true;
     nextBtn.textContent = 'Submitting…';
-    showError('');
+    showFormError('');
 
     try {
       const val = (name) => form.querySelector(`[name="${name}"]`)?.value.trim() || null;
@@ -184,11 +195,19 @@ function initIntakeForm() {
         additional_notes: val('additional_notes'),
       };
 
-      const { error } = await supabase.from('leads').insert(payload);
+      console.log('Submitting form data:', payload);
+
+      // Add timeout to prevent hanging
+      const submitPromise = supabase.from('leads').insert(payload);
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Submission timeout - please check your connection')), 15000)
+      );
+
+      const { error } = await Promise.race([submitPromise, timeoutPromise]);
 
       if (error) {
         console.error('Form submission error:', error);
-        showError('Could not submit form. Please check your connection and try again.');
+        showError(`Could not submit form: ${error.message || 'Unknown error'}. Make sure Supabase is configured correctly.`);
         nextBtn.disabled = false;
         nextBtn.textContent = 'Submit';
         return;
@@ -199,13 +218,14 @@ function initIntakeForm() {
         ? `Thanks, ${firstName} — I've got your details and I'll follow up shortly with homes that match what you're looking for.`
         : `Thanks — I've got your details and I'll follow up shortly with homes that match what you're looking for.`;
 
+      console.log('Form submitted successfully!');
       showSuccess('Form submitted successfully!');
       donePanel.querySelector('p').textContent = message;
       formSteps.style.display = 'none';
       donePanel.style.display = 'block';
     } catch (err) {
       console.error('Form error:', err);
-      showError('An error occurred: ' + err.message);
+      showError('Error: ' + (err.message || 'Unable to submit form'));
       nextBtn.disabled = false;
       nextBtn.textContent = 'Submit';
     }
