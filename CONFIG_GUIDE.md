@@ -4,9 +4,23 @@ All hardcoded names and branding have been removed and moved to a centralized co
 
 ## Quick Start
 
-1. Open [`js/config.js`](./js/config.js)
-2. Update the values with your information
-3. That's it! All pages will automatically display your branding
+### For Development (Local)
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Edit `.env` with your actual information
+3. Also edit [`js/config.js`](./js/config.js) with your branding
+4. Run locally and reload to see changes
+
+### Security Note
+**Never commit `.env` to git.** It's already in `.gitignore`. The `.env` file contains sensitive information like:
+- Supabase API keys
+- Phone numbers
+- Email addresses
+- License numbers
+
+Only `.env.example` (with placeholder values) should be in version control.
 
 ## Configuration Options
 

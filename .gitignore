@@ -5,8 +5,12 @@
 *.swp
 *.swo
 *~
+
+# Environment & Secrets
+.env
 .env.local
 .env.*.local
+.env.production.local
 
 # Node (if added in future)
 node_modules/
