@@ -20,13 +20,20 @@
 <nav>
   <div class="wrap inner">
     <a href="index.html" class="brand-mark">{{CONFIG.agentFullName}} <span>{{CONFIG.companyName}}</span></a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="listings.html">Listings</a>
       <a href="testimonials.html">Testimonials</a>
       <a href="index.html#about">About</a>
       <a href="index.html#intake">Get started</a>
+      <div class="nav-links-mobile-cta">
+        <a href="admin/login.html" class="btn btn-outline-dark">Admin</a>
+        <a href="index.html#intake" class="btn btn-brass">Start my search</a>
+      </div>
     </div>
-    <div style="display: flex; gap: 12px; align-items: center;">
+    <div class="nav-actions">
       <a href="admin/login.html" class="btn btn-outline-dark">Admin</a>
       <a href="index.html#intake" class="btn btn-brass">Start my search</a>
     </div>
@@ -54,6 +61,7 @@
 
 <script src="js/env.js"></script>
 <script src="js/load-env.js"></script>
+<script src="js/nav.js"></script>
 <script type="module">
   import './js/config-loader.js';
   import './js/testimonials.js';

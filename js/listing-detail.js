@@ -55,7 +55,7 @@ async function load() {
       <p style="font-size:30px; font-family:'Fraunces',serif; color:var(--brass-dark); margin:0;">${formatPrice(l.price)}</p>
     </div>
 
-    <div style="display:flex; gap:28px; padding:24px 0; margin:24px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div style="display:flex; flex-wrap:wrap; gap:20px 28px; padding:24px 0; margin:24px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
       ${l.bedrooms != null ? statBlock(l.bedrooms, 'Bedrooms') : ''}
       ${l.bathrooms != null ? statBlock(l.bathrooms, 'Bathrooms') : ''}
       ${l.square_feet != null ? statBlock(l.square_feet.toLocaleString(), 'Sqft') : ''}
